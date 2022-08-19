@@ -17,8 +17,8 @@ public class ContractService {
         double monthlyValue = contract.getTotalValue()/months;
         for(int i = 1; i <= months; i++) {
             Date date = addMonths(contract.getDate(), i);
-            double installmentInterest = onlinePaymentService.interest(monthlyValue, i);
-            double installmentAmount = onlinePaymentService.paymentFee(installmentInterest);
+            double installmentInterest = monthlyValue + onlinePaymentService.interest(monthlyValue, i);
+            double installmentAmount = installmentInterest + onlinePaymentService.paymentFee(installmentInterest);
             contract.addInstallment(new Installment(date, installmentAmount));
         }
     }
